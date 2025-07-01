@@ -38,8 +38,30 @@ public static class Arrays
 
         // PLAN:
         // 1. Check if the list is not empty and amount is valid (between 1 and data.Count).
-        // 2. Get the last 'amount' elements from the list.
-        // 3. Remove those last 'amount' elements from the end of the list.
-        // 4. Insert those elements at the start of the list to complete the rotation.
+        // 2. Use GetRange to take the last 'amount' elements from the list.
+        // 3. Use RemoveRange to remove those elements from the end of the list.
+        // 4. Use InsertRange to insert those elements at the beginning of the list.
+        // This will complete the rotation to the right.
+
+        if (data == null || data.Count == 0)
+        {
+            return; // Nothing to rotate
+        }
+
+        if (amount < 1 || amount > data.Count)
+        {
+            throw new ArgumentOutOfRangeException("amount", "Amount must be between 1 and the size of the list.");
+        }
+
+        // Step 2: Get the last 'amount' elements
+        List<int> lastElements = data.GetRange(data.Count - amount, amount);
+
+        // Step 3: Remove the last 'amount' elements
+        data.RemoveRange(data.Count - amount, amount);
+
+        // Step 4: Insert the elements at the beginning
+        data.InsertRange(0, lastElements);
+
+        // TODO Problem 2 End
     }
 }
