@@ -9,9 +9,17 @@ public class Node
         this.Data = data;
     }
 
+    /// <summary>
+    /// Inserts a value into the tree while ensuring uniqueness.
+    /// </summary>
     public void Insert(int value)
     {
-        // TODO Start Problem 1
+        // Problem 1: Insert unique values only
+        if (value == Data)
+        {
+            // Value already exists; do not insert duplicates
+            return;
+        }
 
         if (value < Data)
         {
@@ -21,7 +29,7 @@ public class Node
             else
                 Left.Insert(value);
         }
-        else
+        else // value > Data
         {
             // Insert to the right
             if (Right is null)
@@ -31,15 +39,28 @@ public class Node
         }
     }
 
+    /// <summary>
+    /// Checks whether a value exists in the tree using recursion.
+    /// </summary>
     public bool Contains(int value)
     {
-        // TODO Start Problem 2
-        return false;
+        // Problem 2: Recursive search
+        if (value == Data)
+            return true;
+        else if (value < Data)
+            return Left != null && Left.Contains(value);
+        else // value > Data
+            return Right != null && Right.Contains(value);
     }
 
+    /// <summary>
+    /// Calculates the height of the tree using recursion.
+    /// </summary>
     public int GetHeight()
     {
-        // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+        // Problem 4: Height of the tree
+        int leftHeight = (Left != null) ? Left.GetHeight() : 0;
+        int rightHeight = (Right != null) ? Right.GetHeight() : 0;
+        return 1 + Math.Max(leftHeight, rightHeight);
     }
 }
